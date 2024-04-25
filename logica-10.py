@@ -13,9 +13,39 @@ Para la cadena "hello world", el diccionario resultante sería:
 
 
 """
-
+palabras = []
 
 def devolviendo_dict(texto):
+    palabra_dict = {}
     for x in texto:
-        print(x)
-devolviendo_dict(input("Escribe tu cadena de texto: "))
+        palabras.append(x)  # Agrega caracter por caracter a una lista
+    for palabra in palabras: # se recorre la lista creada
+        if palabra in palabra_dict: # se pregunta si el caracter esta en el diccionario
+            palabra_dict[palabra] += 1  # Incrementar el contador si la palabra ya está en el diccionario
+        else:
+            palabra_dict[palabra] = 1  # Agregar la palabra al diccionario con un contador inicial de 1
+    return palabra_dict
+
+texto = input("Escribe tu cadena de texto: ")
+resultado = devolviendo_dict(texto)
+print("Resultado:")
+print(resultado)
+
+
+#solucion GPT
+"""
+def devolviendo_dict(texto):
+    palabra_dict = {}
+    for letra in texto:
+        if letra in palabra_dict:
+            palabra_dict[letra] += 1
+        else:
+            palabra_dict[letra] = 1
+    return palabra_dict
+
+texto = input("Escribe tu cadena de texto: ")
+resultado = devolviendo_dict(texto)
+print("Resultado:")
+print(resultado)
+
+"""
