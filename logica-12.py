@@ -1,6 +1,4 @@
 """
-Por supuesto, aquí tienes otra problemática:
-
 Desarrolla un programa en Python para administrar una biblioteca.
 El programa debe permitir al usuario realizar las siguientes operaciones:
 
