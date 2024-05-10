@@ -62,33 +62,49 @@ class Libro(Material):
         return len(self.materiales)  # Método para obtener la cantidad de libros
 
 material = []
-material = Periodico("nom1", 2004, "plus", "matar")
-material = Periodico("nom2", 2005, "plusT", "matarT")
 # Crear instancias de Periodico y agregarlas a la lista de materiales
 while True:
     res = input("Que quieres hacer? periodico / revista / libro : ").lower()
-    if res == "periodico":
-        res = input("Que accion quieres? Crear, buscar, remover: ").lower()
-        if res == "crear":
-            nombre = input("Nombre del periódico: ")
-            año = input("Año: ")
-            editorial = input("Editorial: ")
-            seccion_principal = input("Sección principal: ")
-            material = Periodico(nombre, año, editorial, seccion_principal)
-        if res == "buscar":
-            tituloBusc = input("Digita el nombre que quieres buscar: ").lower()
-            for x in Periodico.periodicos:
-                if x.title == tituloBusc:
-                    print("Los Datos son los siguientes: \n")
-                    print(f"El titulo es: {x.title}")
-                    print(f"El año es:  {x.year}")
-                    print(f"EL editorial es: {x.editorial}")
-                    print(f"La seccion principal es: {x.section}")
+    try:
+        if res == "periodico":
+            res = input("Que accion quieres? Crear, buscar, remover, volver: ").lower()
+            while True:
+                if res == "crear":
+                    nombre = input("Nombre del periódico: ")
+                    year = int(input("year: "))
+                    editorial = input("Editorial: ")
+                    seccion_principal = input("Sección principal: ")
+                    material = Periodico(nombre, year, editorial, seccion_principal)
+                elif res == "buscar":
+                    tituloBusc = input("Digita el nombre que quieres buscar: ").lower()
+                    for x in Periodico.periodicos:
+                        if x.title == tituloBusc:
+                            print("Los Datos son los siguientes: \n")
+                            print(f"El titulo es: {x.title}")
+                            print(f"El año es:  {x.year}")
+                            print(f"EL editorial es: {x.editorial}")
+                            print(f"La seccion principal es: {x.section}")
+                elif res == "remover":
+                    tituloBusc = input("Digita nombre a borrar: ").lower()
+                    for periodic, mater in zip(Periodico.periodicos, Material.materiales):
+                        if periodic.title == tituloBusc and mater.title == tituloBusc:
+                            Periodico.periodicos.remove(periodic)
+                            Material.materiales.remove(mater)
+                            print("Se ha borrado correctamente")
+                elif res == "volver":
+                    break
+                else:
+                    print("Escribe bien")
+                    break
+        else:
+            print("Escribe bien")
 
-        if res == "remover":
-            tituloBusc = input("Digita nombre a borrar: ").lower()
-            for x, y in zip(Periodico.periodicos, Material.materiales):
-                if x.title == tituloBusc and y.title == tituloBusc:
-                    Periodico.periodicos.remove(x)
-                    Material.materiales.remove(x)
-                    print("Se ha borrado correctamente")
+    except ValueError as Valerr:
+        print(f"Tienes que escribir un numero entero: {Valerr}")
+
+    except KeyboardInterrupt as Keyerr:
+        print("\n programa interrumpido. Saliendo....")
+        break
+
+    except Exception as err:
+        print(f"Cometiste este error: {err.__class__}")
