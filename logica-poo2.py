@@ -28,18 +28,20 @@ class Material():
         self.year = year
         self.editorial = editorial
         self.author = author
-        Material.materiales.append(self)  # Agregar la instancia actual a la lista de materiales
 
     def materialView(self):
         return len(self.materiales)  # Método para obtener la cantidad de materiales
 
 class Periodico(Material):
+    periodicos = []
     def __init__(self, title, year, editorial, principalSection):
         super().__init__(title, year, editorial, None)  # Llamar al inicializador de la clase padre
         self.section = principalSection  # Atributo adicional para los periódicos
+        Material.materiales.append(self)
+        Periodico.periodicos.append(self)
 
     def periodicosView(self):
-        return len(self.materiales)  # Método para obtener la cantidad de periódicos
+        return len(self.periodicos)
 
 class Revista(Material):
     def __init__(self, title, year, editorial, numberEdition, tema):
@@ -59,9 +61,10 @@ class Libro(Material):
     def librosView(self):
         return len(self.materiales)  # Método para obtener la cantidad de libros
 
+material = []
+material = Periodico("nom1", 2004, "plus", "matar")
+material = Periodico("nom2", 2005, "plusT", "matarT")
 # Crear instancias de Periodico y agregarlas a la lista de materiales
-periodico1 = Material("nombr", 2344, "editorial", "seccion_principa")
-
 while True:
     res = input("Que quieres hacer? periodico / revista / libro : ").lower()
     if res == "periodico":
@@ -71,6 +74,21 @@ while True:
             año = input("Año: ")
             editorial = input("Editorial: ")
             seccion_principal = input("Sección principal: ")
+            material = Periodico(nombre, año, editorial, seccion_principal)
+        if res == "buscar":
+            tituloBusc = input("Digita el nombre que quieres buscar: ").lower()
+            for x in Periodico.periodicos:
+                if x.title == tituloBusc:
+                    print("Los Datos son los siguientes: \n")
+                    print(f"El titulo es: {x.title}")
+                    print(f"El año es:  {x.year}")
+                    print(f"EL editorial es: {x.editorial}")
+                    print(f"La seccion principal es: {x.section}")
 
-            periodico1 = Periodico(nombre, año, editorial, seccion_principal)
-            print(periodico1.periodicosView())  # Imprimir la cantidad de periódicos
+        if res == "remover":
+            tituloBusc = input("Digita nombre a borrar: ").lower()
+            for x, y in zip(Periodico.periodicos, Material.materiales):
+                if x.title == tituloBusc and y.title == tituloBusc:
+                    Periodico.periodicos.remove(x)
+                    Material.materiales.remove(x)
+                    print("Se ha borrado correctamente")
