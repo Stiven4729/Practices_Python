@@ -19,48 +19,42 @@ Utilizando la herencia y clases en Python,
 debes crear una estructura de clases que satisfaga estas necesidades y te permita modelar 
 eficazmente los diferentes tipos de materiales en la biblioteca.
 """
-from POO import Poo
 from Functions import functPeriodico
 # Crear instancias de Periodico y agregarlas a la lista de materiales
-while True:
-    res = input("Que quieres hacer? periodico / revista / libro : ").lower()
-    try:
+try:
+    while True:
+        res = input("Que quieres hacer? periodico / revista / libro : ").lower()
         if res == "periodico":
             res = input("Que accion quieres? Crear, buscar, remover, volver: ").lower()
-            while True:
-                if res == "crear":
-                    title, year, editorial, section = functPeriodico.crear()
-                    material = Poo.Periodico(title, year, editorial, section)
-                    break
-                elif res == "buscar":
-                    tituloBusc = input("Digita el nombre que quieres buscar: ").lower()
-                    functPeriodico.buscar(tituloBusc)
-                    break
-                elif res == "remover":
-                    tituloBusc = input("Digita nombre a borrar: ").lower()
-                    for periodic, mater in zip(Poo.Periodico.periodicos, Poo.Material.materiales):
-                        if periodic.title == tituloBusc and mater.title == tituloBusc:
-                            Poo.Periodico.periodicos.remove(periodic)
-                            Poo.Material.materiales.remove(mater)
-                            print("Se ha borrado correctamente")
-                    break
-                elif res == "size":
-                    print(Poo.Periodico.size(material))
-                    break
-                elif res == "volver":
-                    break
-                else:
-                    print("Escribe bien")
-                    break
+            try:
+                while True:
+                    if res == "crear":
+                        try:
+                            functPeriodico.crear()
+                        except UnboundLocalError as err:
+                            print(f"No se pudo crear: {err}")
+                        break
+                    elif res == "buscar":
+                        tituloBusc = input("Digita el nombre que quieres buscar: ").lower()
+                        functPeriodico.buscar(tituloBusc)
+                        break
+                    elif res == "remover":
+                        tituloBusc = input("Digita nombre a borrar: ").lower()
+                        functPeriodico.remover(tituloBusc)
+                        break
+                    elif res == "size":
+                        print(functPeriodico.size())
+                        break
+                    elif res == "volver":
+                        break
+                    else:
+                        print("Escribe bien")
+                        break
+            except KeyboardInterrupt:
+                print("Saliendo........")
         elif res == "revista":
             pass
-
-
         else:
             print("Escribe bien")
-
-    except ValueError as Valerr:
-        print(f"Tienes que escribir un numero entero: {Valerr}")
-
-    except KeyboardInterrupt as Keyerr:
-        print("\n programa interrumpido. Saliendo....")
+except KeyboardInterrupt as keyerr:
+    print("Saliendo.....")
