@@ -7,7 +7,8 @@ def crear():
         seccion_principal = input("Sección principal: ")
         if not (nombre and editorial and seccion_principal):
             print("Hay campos vacios. No puedes continuar")
-        Poo.Periodico(nombre, year, editorial, seccion_principal)
+        else:
+            Poo.Periodico(nombre, year, editorial, seccion_principal)
     except ValueError as err:
         print(f"Se te esta pidiendo un entero: {err}")
     return "Creacion exitosa"
